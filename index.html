@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mini Android Web</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#111;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.phone{
+width:360px;
+height:740px;
+background:#000;
+border-radius:30px;
+overflow:hidden;
+box-shadow:0 0 30px #000;
+position:relative;
+}
+
+.wallpaper{
+position:absolute;
+width:100%;
+height:100%;
+background:url("https://picsum.photos/500/900") center/cover;
+}
+
+.status{
+position:absolute;
+top:0;
+width:100%;
+height:35px;
+background:rgba(0,0,0,.35);
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 15px;
+color:white;
+font-size:14px;
+backdrop-filter:blur(10px);
+}
+
+.grid{
+position:absolute;
+top:70px;
+left:0;
+right:0;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+padding:20px;
+}
+
+.app{
+text-align:center;
+color:white;
+cursor:pointer;
+}
+
+.icon{
+width:60px;
+height:60px;
+margin:auto;
+border-radius:18px;
+background:white;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+}
+
+.name{
+margin-top:5px;
+font-size:12px;
+}
+
+.dock{
+position:absolute;
+bottom:15px;
+left:10px;
+right:10px;
+height:70px;
+background:rgba(255,255,255,.2);
+border-radius:25px;
+display:flex;
+justify-content:space-around;
+align-items:center;
+backdrop-filter:blur(20px);
+}
+
+.screen{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:white;
+display:none;
+flex-direction:column;
+}
+
+.header{
+height:55px;
+background:#1976D2;
+color:white;
+display:flex;
+align-items:center;
+padding-left:15px;
+font-size:18px;
+}
+
+.content{
+padding:20px;
+overflow:auto;
+flex:1;
+}
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+<div class="wallpaper"></div>
+
+<div class="status">
+<div id="jam"></div>
+<div>📶 📡 🔋100%</div>
+</div>
+
+<div class="grid">
+
+<div class="app" onclick="buka('telepon')">
+<div class="icon">📞</div>
+<div class="name">Telepon</div>
+</div>
+
+<div class="app" onclick="buka('pesan')">
+<div class="icon">💬</div>
+<div class="name">Pesan</div>
+</div>
+
+<div class="app" onclick="buka('galeri')">
+<div class="icon">🖼️</div>
+<div class="name">Galeri</div>
+</div>
+
+<div class="app" onclick="buka('kamera')">
+<div class="icon">📷</div>
+<div class="name">Kamera</div>
+</div>
+
+<div class="app" onclick="buka('setting')">
+<div class="icon">⚙️</div>
+<div class="name">Pengaturan</div>
+</div>
+
+<div class="app" onclick="buka('browser')">
+<div class="icon">🌐</div>
+<div class="name">Browser</div>
+</div>
+
+<div class="app" onclick="buka('kalkulator')">
+<div class="icon">🧮</div>
+<div class="name">Kalkulator</div>
+</div>
+
+<div class="app" onclick="buka('file')">
+<div class="icon">📁</div>
+<div class="name">File</div>
+</div>
+
+</div>
+
+<div class="dock">
+📞 💬 🌐 📷
+</div>
+
+<div class="screen" id="screen">
+
+<div class="header">
+<span onclick="tutup()" style="margin-right:15px;">⬅</span>
+<span id="judul"></span>
+</div>
+
+<div class="content" id="isi"></div>
+
+</div>
+
+</div>
+
+<script>
+
+setInterval(()=>{
+let d=new Date();
+jam.innerHTML=d.toLocaleTimeString([],{
+hour:'2-digit',
+minute:'2-digit'
+});
+},1000);
+
+function buka(app){
+
+screen.style.display="flex";
+
+judul.innerHTML=app;
+
+switch(app){
+
+case "telepon":
+isi.innerHTML="<h2>📞 Telepon</h2><br>Belum tersedia.";
+break;
+
+case "pesan":
+isi.innerHTML="<h2>💬 Pesan</h2><br>Belum tersedia.";
+break;
+
+case "galeri":
+isi.innerHTML="<h2>🖼️ Galeri</h2><br>Foto akan tampil di sini.";
+break;
+
+case "kamera":
+isi.innerHTML="<h2>📷 Kamera</h2><br>Camera API dapat ditambahkan.";
+break;
+
+case "browser":
+isi.innerHTML="<iframe src='https://www.google.com' style='width:100%;height:100%;border:none'></iframe>";
+break;
+
+case "setting":
+isi.innerHTML="<h2>⚙️ Pengaturan</h2><br>Mode Gelap<br>WiFi<br>Bluetooth";
+break;
+
+case "kalkulator":
+isi.innerHTML="<h2>🧮 Kalkulator</h2>";
+break;
+
+case "file":
+isi.innerHTML="<h2>📁 File Manager</h2>";
+break;
+
+}
+
+}
+
+function tutup(){
+screen.style.display="none";
+}
+
+</script>
+
+</body>
+</html>
